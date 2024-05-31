@@ -160,7 +160,6 @@ function LoginDiv() {
 
             <p className='p'>Aún no tienes una cuenta? <a className='a' href={URL_REGISTRO}>Registrate</a></p>
           </Link>
-          <h2>si se ven los cambios </h2>
         </div>
       </div>
     </>
