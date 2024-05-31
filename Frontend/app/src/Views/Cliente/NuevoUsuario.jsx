@@ -18,7 +18,7 @@ function NuevoUsuario() {
   const [parqueaderos, setParqueaderos] = useState([]);
   const [isTarjetasCreditoOpen, setTarjetasCreditoOpen] = useState(false);
   const nombre = localStorage.getItem('userName');
-
+  
   const userData = {
     name: nombre,
     paymentMethod: "VISA **** 4029",
@@ -33,7 +33,7 @@ function NuevoUsuario() {
           redirect: "follow"
         };
 
-        const response = await fetch("https://fourparks-one.vercel.app/obtenerCiudades", requestOptions);
+        const response = await fetch("https://https://fourparks-one.vercel.app/obtenerCiudades/obtenerCiudades", requestOptions);
         const result = await response.json();
         setCities(result.data);
         
@@ -66,7 +66,7 @@ function NuevoUsuario() {
         redirect: "follow"
       };
 
-      const response = await fetch("https://https://fourparks-one.vercel.app/parqueaderoCiudad", requestOptions);
+      const response = await fetch("https://https://fourparks-one.vercel.app/obtenerCiudades/parqueaderoCiudad", requestOptions);
       const result = await response.json();
 
       const mappedParqueaderos = result.data.map(parqueadero => {
@@ -122,7 +122,7 @@ function NuevoUsuario() {
         redirect: "follow"
       };
 
-      const response = await fetch("https://https://fourparks-one.vercel.app/obtenerParqueadero", requestOptions);
+      const response = await fetch("https://https://fourparks-one.vercel.app/obtenerCiudades/obtenerParqueadero", requestOptions);
       const result = await response.json();
       
       const { data } = result;
