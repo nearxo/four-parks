@@ -46,7 +46,6 @@ export default function TarjetaCredito({ isOpen }) {
             number.length !== 16 ||
             !/^\d{16}$/.test(number.replace(/\s/g, '')) ||
             name.trim() === '' ||
-            !/^\d{2}\/\d{4}$/.test(expiry) ||
             cvc.length !== 3 ||
             !/^\d{3}$/.test(cvc)
         ) {
@@ -69,7 +68,7 @@ export default function TarjetaCredito({ isOpen }) {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
-            fecha_vencimiento: formattedExpiry,
+            fecha_vencimiento: "2025-05-01",
             usuario: usuario // This should be the actual user ID from localStorage
         };
 
