@@ -53,7 +53,7 @@ function RegistroDiv() {
         setTarjetaOpen(true);
         toast.success("Registro exitoso");
         setUserId(data.id);
-        console.log(UserId);
+        console.log(userId);
         console.log("Registro exitoso:", data);
       })
       .catch((error) => {
@@ -101,7 +101,7 @@ function RegistroDiv() {
           <p className="p">¿Ya tienes una cuenta? Inicia sesión</p>
         </Link>
         <p>1</p>
-        <TarjetaCredito isOpen={isTarjetaOpen } userId={} />
+        <TarjetaCredito isOpen={isTarjetaOpen } userId={userId} />
       </div>
     </div>
   );
