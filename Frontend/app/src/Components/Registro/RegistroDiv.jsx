@@ -93,6 +93,7 @@ function RegistroDiv() {
           </div>
           <div id="containerTarjetaCredito">
             <label className="label">Correo electrónico</label>
+            <label className="label">2</label>
             <input type="email" id="inputCorreo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
           </div>
           <button type="submit" id="btnRegistro">Registrarse</button>
