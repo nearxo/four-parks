@@ -8,8 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function TarjetaCredito({ isOpen, userId }) {
     if (!isOpen) return null;
-    const [selectedDateTime, setSelectedDateTime] = useState(null);
-    const [formattedDateTime, setFormattedDateTime] = useState('');
+
     const [cardInfo, setCardInfo] = useState({
         number: '',
         name: '',
@@ -25,27 +24,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
             [name]: value
         }));
     };
-    const formatDateTime = (date) => {
-        if (!date) return '';
-        const year = date.getFullYear();
-        const month = (`0${date.getMonth() + 1}`).slice(-2);
-        const day = (`0${date.getDate()}`).slice(-2);
-        const hours = (`0${date.getHours()}`).slice(-2);
-        return `${year}-${month}-${day} ${hours}:00:00`;
-      };
-    const handleDateTimeChange = (date) => {
-        setSelectedDateTime(date);
-        const formatted = formatDateTime(date);
-        setFormattedDateTime(formatted);
-      };
-    const formatExpiryDate = (expiry) => {
-        return expiry.replace(/^(\d{2})(\d{0,4})$/, '$1/$2');
-    };
-    const filterPassedTime = (time) => {
-        const currentDate = new Date();
-        const selectedDate = new Date(time);
-        return currentDate.getTime() < selectedDate.getTime();
-      };
+
     const handleDateChange = (date) => {
         setExpiryDate(date);
         const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
@@ -59,10 +38,6 @@ export default function TarjetaCredito({ isOpen, userId }) {
         return number.replace(/(.{4})/g, '$1 ').trim();
     };
 
-    const formatExpiryDate = (expiry) => {
-        return expiry.replace(/^(\d{2})(\d{0,4})$/, '$1/$2');
-    };
-
     const validateData = () => {
         const { number, name, expiry, cvc } = cardInfo;
         if (
@@ -74,19 +49,17 @@ export default function TarjetaCredito({ isOpen, userId }) {
             !/^\d{3}$/.test(cvc)
         ) {
             toast.error('Datos erróneos, por favor verificar.');
-            return true;
+            return false;
         }
         toast.success('Datos válidos.');
-        return false;
+        return true;
     };
 
-    const handleSubmit = async () => {
-        if (validateData()) return;
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!validateData()) return;
 
         const { number, name, expiry, cvc } = cardInfo;
-        const [month, year] = expiry.split('/');
-        console.log("mes",month,"año",year);
-        const formattedExpiry = `${year}-${month}-01`;
 
         const data = {
             numero: number,
@@ -95,6 +68,8 @@ export default function TarjetaCredito({ isOpen, userId }) {
             fecha_vencimiento: expiry,
             usuario: userId
         };
+
+        console.log('Datos ingresados:', data);
 
         try {
             const requestOptions = {
@@ -112,14 +87,15 @@ export default function TarjetaCredito({ isOpen, userId }) {
             }
             const result = await response.json();
             console.log('Response from server:', result);
-            // Manejar el éxito, tal vez resetear el formulario o mostrar un mensaje
+            toast.success('Tarjeta agregada exitosamente.');
         } catch (error) {
-            alert('Error submitting data: ' + error.message);
+            toast.error('Error al enviar los datos: ' + error.message);
         }
     };
 
     return (
         <div className="credit-card-form">
+            <ToastContainer />
             <div className='credit-card-card'>
                 <div className='tarjetas'>
                     <div className="credit-card-front">
@@ -136,7 +112,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
                                 <div className='rccs__exp'>
                                     <p>valid true</p>
                                     <div className="rccs__expiry__valid">
-                                        {formatExpiryDate(cardInfo.expiry.padEnd(6, '•'))}
+                                        {cardInfo.expiry || 'MM/AAAA'}
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +133,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
                 </div>
                 <div className='formulario'>
                     <p className='texto'>Ingresa los datos de tu tarjeta para poder continuar </p>
-                    <form className='campos'>
+                    <form className='campos' onSubmit={handleSubmit}>
                         <input
                             type="text"
                             className='input-Tarjeta'
@@ -176,8 +152,8 @@ export default function TarjetaCredito({ isOpen, userId }) {
                             onChange={handleChange}
                         />
                         <DatePicker
-                            selected={selectedDateTime}
-                            onChange={handleDateTimeChange}
+                            selected={expiryDate}
+                            onChange={handleDateChange}
                             dateFormat="MM/yyyy"
                             showMonthYearPicker
                             minDate={new Date()}
@@ -193,8 +169,8 @@ export default function TarjetaCredito({ isOpen, userId }) {
                             onChange={handleChange}
                             maxLength={3}
                         />
+                        <button type="submit">Validar</button>
                     </form>
-                    <button onClick={handleSubmit}>Validar</button>
                 </div>
             </div>
         </div>
