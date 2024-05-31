@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './TarjetaCredito.css';
-import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -36,6 +35,10 @@ export default function TarjetaCredito({ isOpen, userId }) {
 
     const formatCardNumber = (number) => {
         return number.replace(/(.{4})/g, '$1 ').trim();
+    };
+
+    const formatExpiryDateForDisplay = (expiry) => {
+        return expiry.replace(/^(\d{4})-(\d{2})-01$/, '$2/$1');
     };
 
     const validateData = () => {
@@ -112,7 +115,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
                                 <div className='rccs__exp'>
                                     <p>valid true</p>
                                     <div className="rccs__expiry__valid">
-                                        {cardInfo.expiry || 'MM/AAAA'}
+                                        {formatExpiryDateForDisplay(cardInfo.expiry.padEnd(7, '•'))}
                                     </div>
                                 </div>
                             </div>
