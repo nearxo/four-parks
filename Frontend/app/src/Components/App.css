@@ -1,0 +1,140 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap');
+html{
+  height: 100%;
+  width: 100%;
+}
+body {
+  margin: 0 auto;
+  height: 100%; 
+  padding: 2rem;
+  text-align: center;
+  width: 100vw;
+}
+
+h2 {
+  font-family: 'Encode Sans Condensed', sans-serif;
+  letter-spacing: 2px;
+  margin: 1vmax 0;
+}
+
+#Datos{
+  display: flex;
+  flex-direction: column;
+}
+
+#logo {
+  border-radius: 50%;
+  width: 15%;
+  align-self: center;
+}
+
+#container {
+  
+  font-family: 'Encode Sans Condensed', sans-serif;  
+  line-height: normal; 
+  font-weight: normal; 
+  justify-content: center;
+  color: #000;
+  background-color: #ffffff;
+  text-rendering: auto; 
+  -webkit-font-smoothing: auto; 
+  -moz-osx-font-smoothing: auto; 
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  min-height: 90vh; 
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.25);
+  box-sizing: border-box; 
+  border-radius: 3%;
+}
+
+#backgroundContainer {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+#backgroundContainer img {
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+#contentContainer {
+  display: flex;
+  margin-top: 5%;
+  align-items: center; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 3rem;
+  height: 100%;
+  color: #121012;
+}
+
+#contentContainer label,
+#contentContainer p {
+  font-size: 2vmax;
+  font-family: 'Assistant', sans-serif;
+  font-weight: 300;
+  margin-top: 1vmax;
+}
+
+a {
+  color: #C20F2D;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+#username,
+#password,
+#tarjetaCredito {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}
+
+
+button {
+  width: 10vw;
+  height: 4vmax;
+  margin-top: 1vmax;
+  border-radius: 25px;
+  font-size:  1vmax;
+  background-color: #002E83;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+  color :#ffffff;
+  align-items: center;
+}
+
+@media (min-width: 800px ) {
+  
+  #container {
+
+    padding: 0rem;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  #contentContainer,
+  #backgroundContainer {
+    padding: 1vmax;
+    width: 50%;
+  }
+
+  input{
+    width: 10vmax;
+    height: 1vmax;
+    border: 2px solid #ccc; 
+    border-radius: 25px;
+    padding: 10px; 
+    outline: none;
+    margin: 5px;
+    margin-bottom: 5px;
+  }
+}*/

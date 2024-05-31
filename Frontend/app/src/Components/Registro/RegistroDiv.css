@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap');
+
+#container h2 {
+  font-family: 'Encode Sans Condensed', sans-serif;
+  letter-spacing: 2px;
+  margin: 1rem 0;
+}
+
+#logo {
+  border-radius: 50%;
+  height: 20%;
+  align-self: center;
+}
+
+#container {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 50px;
+  width: 80vw;
+  height: 80%;
+  justify-content: space-around;
+  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.25);
+}
+#containerTarjetaCredito{
+  display: contents;
+}
+#backgroundContainer {
+  width: 50%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 50px 0 0 50px;
+}
+
+#backgroundContainer img {
+  width: auto;
+  height: 100%;
+  display: block;
+}
+#form-registro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9e9e9;
+  border-color: #121012;
+  border-width: 1px;
+  border-radius: 25px;
+  padding: 3%;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin: 3%;
+}
+#contentContainer {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction:column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: #121012;
+}
+
+#contentContainer .label,
+#contentContainer .p {
+  font-size: 2vmax;
+  font-family: 'Assistant', sans-serif;
+  font-weight: 300;
+  margin-top: 1rem;
+}
+
+.a {
+  color: #C20F2D;
+  text-decoration: none;
+  font-weight: 700;
+}
+.link{
+  text-decoration: solid;
+}
+#contentContainer #btnRegistro {
+  border: 1px solid #ced4da;
+  box-sizing: border-box;
+  width: 100%;
+  height: 3rem;
+  margin-top: 1rem;
+  border-radius: 25px;
+  font-family: 'Assistant', sans-serif;
+  font-size: 1.2rem;
+  background-color: #E2F22B;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+#contentContainer #btnRegistro:hover{
+  background-color: #89a1d4;
+
+}
+
+/*@media (min-width: 800px ) {
+  #container {
+    padding: 0rem;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  #contentContainer,
+  #backgroundContainer {
+    padding: 1rem;
+    width: 50%;
+  }
+
+  input,
+  button {
+    border: 2px solid #ccc;
+    border-radius: 25px; 
+    padding: 10px;
+    outline: none;
+    margin: 5px;
+    max-width: 250px;
+    margin-bottom: 5px;
+  }
+}*/
