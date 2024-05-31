@@ -88,7 +88,7 @@ export default function TarjetaCredito({ isOpen }) {
             console.log('Response from server:', result);
             // Handle success, maybe reset form or show a message
         } catch (error) {
-            console.error('Error submitting data:', error);
+            alert('Error submitting data:', error);
         }
     };
 
