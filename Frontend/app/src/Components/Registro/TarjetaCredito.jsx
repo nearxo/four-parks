@@ -73,7 +73,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
-            fecha_vencimiento: expiry,
+            fecha_vencimiento: formattedExpiry,
             usuario: userId
         };
 
