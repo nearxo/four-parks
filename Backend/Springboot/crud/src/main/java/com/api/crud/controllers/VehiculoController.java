@@ -16,7 +16,7 @@ public class VehiculoController {
     @Autowired
     private VehiculoService vehiculoService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @GetMapping("/obtenerVehiculos")
     public Map<String, Object> obtenerVehiculos() {
         return Map.of("data", vehiculoService.obtenerVehiculos(true), "msg", "Vehiculos");

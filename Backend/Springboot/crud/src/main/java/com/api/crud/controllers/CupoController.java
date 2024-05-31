@@ -51,7 +51,7 @@ public class CupoController {
     @Autowired
     private TarifaService tarifaService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/reservarCupo")
     public Map<String, Object> reservarCupo(@RequestBody ReservarCupoRequest request) throws MessagingException {
         boolean disponibilidad = cupoService.verificarDisponibilidadCupo(request.getParqueaderoId(),
@@ -83,7 +83,7 @@ public class CupoController {
         return Map.of("data", "", "msg", "Sin disponibilidad");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/ocuparCupo")
     public Map<String, Object> ocuparCupo(@RequestBody OcuparRequest request) throws MessagingException {
         boolean ocupado = cupoService.ocuparCupo(request.getCodigo());
@@ -101,7 +101,7 @@ public class CupoController {
         }
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/finalizarCupoOnline")
     public Map<String, Object> finalizarCupoOn(@RequestBody OcuparRequest request) {
         FacturaModel factura = cupoService.finalizarCupoOnline(request.getCodigo());
@@ -111,7 +111,7 @@ public class CupoController {
                 "msg", "Error al finalizar el cupo");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/finalizarCupoOffline")
     public Map<String, Object> finalizarCupoOff(@RequestBody OcuparRequest request) {
         FacturaOfflineModel factura = cupoService.finalizarCupoOffline(request.getCodigo());
@@ -129,7 +129,7 @@ public class CupoController {
         }
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/verificarDisponibilidad")
     public Map<String, Object> verificarDisponibilidad(@RequestBody VerificarDisponibilidadRequest verificar) {
         boolean cupoDisponible = cupoService.verificarDisponibilidadCupo(verificar.getParqueaderoId(),
@@ -138,7 +138,7 @@ public class CupoController {
 
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/listaCupos")
     public Map<String, Object> listaCupos(@RequestBody UsuarioRequest usuario) {
         List<CupoModel> cupos = cupoService.buscarCupos(usuario.getUsuario_id());

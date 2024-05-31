@@ -21,13 +21,13 @@ public class CiudadController {
     @Autowired
     private CiudadService ciudadService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @GetMapping("/obtenerCiudades")
     public Map<String, Object> obenerCiudades() {
         return Map.of("data", ciudadService.obtenerCiudades(true), "msg", "Ciudades");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/crearCiudad")
     public Map<String, Object> crearCiudad(@RequestBody CiudadRequest ciudad) {
         CiudadModel ciudadNueva = new CiudadModel();
@@ -39,7 +39,7 @@ public class CiudadController {
         return Map.of("data", ciudadService.guardarCiudad(ciudadNueva), "msg", "Ciudad creada");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/modificarCiudad")
     public Map<String, Object> modificarCiudad(@RequestBody CiudadRequest ciudadModificar) {
         CiudadModel ciudad  = ciudadService.buscarCiudad(ciudadModificar.getId()).get();
