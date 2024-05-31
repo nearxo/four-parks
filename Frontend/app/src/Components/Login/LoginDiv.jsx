@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 import backgroundLogin from '../../assets/backgroundLogin.svg';
 import './LoginDiv.css';
-import { Link } from 'react-router-dom';
 
 function LoginDiv() {
   const URL_POST = 'https://backend-parqueadero-production.up.railway.app/login';
   const URL_USER = '/user';
   const URL_ADMIN = '/admin';
   const URL_GERENTE = '/gerente';
-  const URL_REGISTRO = 'registro';
+  const URL_REGISTRO = '/registro';
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userId, setUserId] = useState(null);
   const [error, setError] = useState('');
+  const history = useHistory();
 
   const irAOtraRuta = (url) => {
-    window.location.href = url;
+    history.push(url);
   };
 
   function login(event) {
@@ -157,14 +158,13 @@ function LoginDiv() {
             <button type='button' id='btnIngresar' onClick={login}>Ingresar</button>
           </form>
           <Link to='/registro' className='link'>
-
             <p className='p'>Aún no tienes una cuenta? <a className='a' href={URL_REGISTRO}>Registrate</a></p>
           </Link>
           <p>4</p>
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default LoginDiv;
