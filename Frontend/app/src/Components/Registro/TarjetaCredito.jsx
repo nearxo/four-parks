@@ -1,181 +1,110 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './TarjetaCredito.css';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import Logo from '../../assets/logo.png'; // Placeholder para el logo
+import backgroundLogin from '../../assets/backgroundLogin.svg';
+import TarjetaCredito from './TarjetaCredito';
+import './RegistroDiv.css';
+import { Link } from 'react-router-dom';
 
-export default function TarjetaCredito({ isOpen, userId }) {
-    if (!isOpen) return null;
+function RegistroDiv() {
+  const URL_POST = 'https://backend-parqueadero-production.up.railway.app/registroPersona'; // Endpoint para confirmar datos
+  const [nombre, setNombre] = useState('');
+  const [identificacion, setIdentificacion] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [isTarjetaOpen, setTarjetaOpen] = useState(false);
+  const [userId, setUserId] = useState('');
 
-    const [cardInfo, setCardInfo] = useState({
-        number: '',
-        name: '',
-        expiry: '',
-        cvc: ''
-    });
-    const [expiryDate, setExpiryDate] = useState(null);
+  const registrar = (event) => {
+    event.preventDefault();
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setCardInfo(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+    // Validación del nombre
+    const nombreValidado = validarNombre(nombre);
+    if (!nombreValidado) {
+      toast.error('El nombre debe contener al menos 2 palabras de mínimo 3 caracteres cada una, separadas por un espacio.');
+      return;
+    }
+
+    if (nombre.trim() === '' || identificacion.trim() === '' || correo.trim() === '') {
+      toast.error('Por favor complete todos los campos.');
+      return;
+    }
+
+    const info = {
+      nombre,
+      identificacion,
+      correo,
     };
 
-    const handleDateChange = (date) => {
-        setExpiryDate(date);
-        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
-        setCardInfo(prevState => ({
-            ...prevState,
-            expiry: formattedDate
-        }));
-    };
-
-    const formatCardNumber = (number) => {
-        return number.replace(/(.{4})/g, '$1 ').trim();
-    };
-
-    const formatExpiryDateForDisplay = (expiry) => {
-        return expiry.replace(/^(\d{4})-(\d{2})-01$/, '$2/$1');
-    };
-
-    const validateData = () => {
-        const { number, name, expiry, cvc } = cardInfo;
-        if (
-            number.length !== 16 ||
-            !/^\d{16}$/.test(number.replace(/\s/g, '')) ||
-            name.trim() === '' ||
-            expiry.trim() === '' ||
-            cvc.length !== 3 ||
-            !/^\d{3}$/.test(cvc)
-        ) {
-            toast.error('Datos erróneos, por favor verificar.');
-            return false;
+    fetch(URL_POST, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(info),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error al enviar el post');
         }
-        toast.success('Datos válidos.');
-        return true;
-    };
+        return response.json();
+      })
+      .then((data) => {
+        setTarjetaOpen(true);
+        toast.success("Registro exitoso");
+        setUserId(data.data.id);
+        console.log("userId", data.data.id); // Corregido para usar data.data.id en lugar de userId que aún no ha sido actualizado
+        console.log("Registro exitoso:", data);
+      })
+      .catch((error) => {
+        toast.error("Error en el registro");
+        console.error("Error en el registro:", error);
+      });
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!validateData()) return;
+  // Función de validación del nombre
+  const validarNombre = (nombre) => {
+    const palabras = nombre.trim().split(' ');
+    if (palabras.length < 2) return false;
+    for (let palabra of palabras) {
+      if (palabra.length < 3) return false;
+    }
+    return true;
+  };
 
-        const { number, name, expiry, cvc } = cardInfo;
-
-        const data = {
-            numero: number,
-            nombre_propietario: name,
-            cvc: cvc,
-            fecha_vencimiento: expiry,
-            usuario: userId
-        };
-
-        console.log('Datos ingresados:', data);
-
-        try {
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data),
-                redirect: "follow"
-            };
-
-            const response = await fetch("https://backend-parqueadero-production.up.railway.app/guardarTarjeta", requestOptions);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const result = await response.json();
-            console.log('Response from server:', result);
-            toast.success('Tarjeta agregada exitosamente.');
-        } catch (error) {
-            toast.error('Error al enviar los datos: ' + error.message);
-        }
-    };
-
-    return (
-        <div className="credit-card-form">
-            <ToastContainer />
-            <div className='credit-card-card'>
-                <div className='tarjetas'>
-                    <div className="credit-card-front">
-                        <div className="credit-card">
-                            <div className='tipo-tarjeta'>
-                                <div className='rccs__chip'></div>
-                                <div className='rccs__card--visa'></div>
-                            </div>
-                            <div className="rccs__number">
-                                {formatCardNumber(cardInfo.number.padEnd(16, '•'))}
-                            </div>
-                            <div className='parte-abajo'>
-                                <div className="rccs__name">{cardInfo.name || 'YOUR NAME HERE'}</div>
-                                <div className='rccs__exp'>
-                                    <p>valid true</p>
-                                    <div className="rccs__expiry__valid">
-                                        {formatExpiryDateForDisplay(cardInfo.expiry.padEnd(7, '•'))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="credit-card-back">
-                        <div className="rccs__cardback">
-                            <div className="rccs__card__background">
-                                <div className="rccs__issuer"></div>
-                                <div className="rccs__stripe"></div>
-                                <div className="rccs__signature">
-                                    <div className="rccs__cvc-text">CVC</div>
-                                    <div className="rccs__cvc">{cardInfo.cvc.padEnd(3, '•')}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='formulario'>
-                    <p className='texto'>Ingresa los datos de tu tarjeta para poder continuar </p>
-                    <form className='campos' onSubmit={handleSubmit}>
-                        <input
-                            type="text"
-                            className='input-Tarjeta'
-                            name="number"
-                            placeholder="Card Number"
-                            value={cardInfo.number}
-                            onChange={handleChange}
-                            maxLength={16}
-                        />
-                        <input
-                            type="text"
-                            className='input-Tarjeta'
-                            name="name"
-                            placeholder="Name"
-                            value={cardInfo.name}
-                            onChange={handleChange}
-                        />
-                        <DatePicker
-                            selected={expiryDate}
-                            onChange={handleDateChange}
-                            dateFormat="MM/yyyy"
-                            showMonthYearPicker
-                            minDate={new Date()}
-                            className='input-Tarjeta'
-                            placeholderText="Valid Thru (MM/YYYY)"
-                        />
-                        <input
-                            type="text"
-                            className='input-Tarjeta'
-                            name="cvc"
-                            placeholder="CVC"
-                            value={cardInfo.cvc}
-                            onChange={handleChange}
-                            maxLength={3}
-                        />
-                        <button type="submit">Validar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    );
+  return (
+    <div id="container">
+      <ToastContainer />
+      <div id="backgroundContainer">
+        <img src={backgroundLogin} alt="Background" />
+      </div>
+      <div id="contentContainer">
+        <img id="logo" src={Logo} alt="Logo" />
+        <h2>Registrate!</h2>
+        <label className="label">Un gusto que te unas a nosotros!</label>
+        <form id="form-registro" onSubmit={registrar}>
+          <div id="containerUsername">
+            <label className="label">Nombre</label>
+            <input type="text" id="inputUsername" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+          </div>
+          <div id="containerPassword">
+            <label className="label">Identificación</label>
+            <input type="text" id="inputPassword" value={identificacion} onChange={(e) => setIdentificacion(e.target.value)} />
+          </div>
+          <div id="containerTarjetaCredito">
+            <label className="label">Correo electrónico</label>
+            <label className="label">2</label>
+            <input type="email" id="inputCorreo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+          </div>
+          <button type="submit" id="btnRegistro">Registrarse</button>
+        </form>
+        <Link to='/login' className='link'>
+          <p className="p">¿Ya tienes una cuenta? Inicia sesión</p>
+        </Link>
+        <TarjetaCredito isOpen={isTarjetaOpen } userId={userId} />
+      </div>
+    </div>
+  );
 }
+
+export default RegistroDiv;
