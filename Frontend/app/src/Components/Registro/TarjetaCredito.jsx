@@ -68,7 +68,7 @@ export default function TarjetaCredito({ isOpen, userId, onSuccess }) {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
-            fecha_vencimiento: expiry,
+            fecha_vencimiento: "2024-05-01",
             usuario: userId
         };
 
