@@ -8,7 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function TarjetaCredito({ isOpen, userId }) {
     if (!isOpen) return null;
-
+    const [selectedDateTime, setSelectedDateTime] = useState(null);
+    const [formattedDateTime, setFormattedDateTime] = useState('');
     const [cardInfo, setCardInfo] = useState({
         number: '',
         name: '',
@@ -24,9 +25,27 @@ export default function TarjetaCredito({ isOpen, userId }) {
             [name]: value
         }));
     };
+    const formatDateTime = (date) => {
+        if (!date) return '';
+        const year = date.getFullYear();
+        const month = (`0${date.getMonth() + 1}`).slice(-2);
+        const day = (`0${date.getDate()}`).slice(-2);
+        const hours = (`0${date.getHours()}`).slice(-2);
+        return `${year}-${month}-${day} ${hours}:00:00`;
+      };
+    const handleDateTimeChange = (date) => {
+        setSelectedDateTime(date);
+        const formatted = formatDateTime(date);
+        setFormattedDateTime(formatted);
+      };
     const formatExpiryDate = (expiry) => {
         return expiry.replace(/^(\d{2})(\d{0,4})$/, '$1/$2');
     };
+    const filterPassedTime = (time) => {
+        const currentDate = new Date();
+        const selectedDate = new Date(time);
+        return currentDate.getTime() < selectedDate.getTime();
+      };
     const handleDateChange = (date) => {
         setExpiryDate(date);
         const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
@@ -73,7 +92,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
-            fecha_vencimiento: formattedExpiry,
+            fecha_vencimiento: expiry,
             usuario: userId
         };
 
@@ -157,8 +176,8 @@ export default function TarjetaCredito({ isOpen, userId }) {
                             onChange={handleChange}
                         />
                         <DatePicker
-                            selected={expiryDate}
-                            onChange={handleDateChange}
+                            selected={selectedDateTime}
+                            onChange={handleDateTimeChange}
                             dateFormat="MM/yyyy"
                             showMonthYearPicker
                             minDate={new Date()}
