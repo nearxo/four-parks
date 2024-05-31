@@ -44,7 +44,7 @@ export default function TarjetaCredito({ isOpen, userId, onSuccess }) {
     const validateData = () => {
         const { number, name, expiry, cvc } = cardInfo;
         if (
-            number.length !== 16 ||
+            number.replace(/\s/g, '').length !== 16 ||
             !/^\d{16}$/.test(number.replace(/\s/g, '')) ||
             name.trim() === '' ||
             expiry.trim() === '' ||
@@ -68,7 +68,7 @@ export default function TarjetaCredito({ isOpen, userId, onSuccess }) {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
-            fecha_vencimiento: "2024-05-01",
+            fecha_vencimiento: expiry,
             usuario: userId
         };
 
