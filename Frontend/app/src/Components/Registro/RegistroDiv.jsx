@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Logo from '../../assets/logo.png'; // Placeholder para el logo
@@ -14,6 +15,7 @@ function RegistroDiv() {
   const [correo, setCorreo] = useState('');
   const [isTarjetaOpen, setTarjetaOpen] = useState(false);
   const [userId, setUserId] = useState('');
+  const navigate = useNavigate();
 
   const registrar = (event) => {
     event.preventDefault();
@@ -62,6 +64,10 @@ function RegistroDiv() {
       });
   };
 
+  const onCardSuccess = () => {
+    navigate('/login');
+  };
+
   // Función de validación del nombre
   const validarNombre = (nombre) => {
     const palabras = nombre.trim().split(' ');
@@ -93,7 +99,6 @@ function RegistroDiv() {
           </div>
           <div id="containerTarjetaCredito">
             <label className="label">Correo electrónico</label>
-            <label className="label">2</label>
             <input type="email" id="inputCorreo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
           </div>
           <button type="submit" id="btnRegistro">Registrarse</button>
@@ -101,7 +106,7 @@ function RegistroDiv() {
         <Link to='/login' className='link'>
           <p className="p">¿Ya tienes una cuenta? Inicia sesión</p>
         </Link>
-        <TarjetaCredito isOpen={isTarjetaOpen } userId={userId} />
+        <TarjetaCredito isOpen={isTarjetaOpen} userId={userId} onSuccess={onCardSuccess} />
       </div>
     </div>
   );

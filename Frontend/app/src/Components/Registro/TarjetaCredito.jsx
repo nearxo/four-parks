@@ -5,7 +5,7 @@ import './TarjetaCredito.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function TarjetaCredito({ isOpen, userId }) {
+export default function TarjetaCredito({ isOpen, userId, onSuccess }) {
     if (!isOpen) return null;
 
     const [cardInfo, setCardInfo] = useState({
@@ -91,6 +91,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
             const result = await response.json();
             console.log('Response from server:', result);
             toast.success('Tarjeta agregada exitosamente.');
+            onSuccess(); // Llamar a la función onSuccess cuando el registro de la tarjeta sea exitoso
         } catch (error) {
             toast.error('Error al enviar los datos: ' + error.message);
         }
