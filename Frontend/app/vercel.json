@@ -1,0 +1,19 @@
+{
+    "routes": [
+      { "src": "/login", "dest": "/index.html" },
+      { "src": "/registro", "dest": "/index.html" },
+      { "src": "/user", "dest": "/index.html" },
+      { "src": "/Gerente/Impacto", "dest": "/index.html" },
+      { "src": "/Gerente/Modificaciones", "dest": "/index.html" },
+      { "src": "/Gerente/VerComo", "dest": "/index.html" },
+      { "src": "/Gerente/Cuentas", "dest": "/index.html" },
+      { "src": "/Gerente/CrearParqueadero", "dest": "/index.html" },
+      { "src": "/Gerente/CrearCiudad", "dest": "/index.html" },
+      { "src": "/Gerente/GerenteParqueaderos", "dest": "/index.html" },
+      { "src": "/Admin/Modificaciones", "dest": "/index.html" },
+      { "src": "/Admin", "dest": "/index.html" },
+      { "src": "/Gerente", "dest": "/index.html" },
+      { "src": "/(.*)", "dest": "/index.html" }
+    ]
+  }
+  
