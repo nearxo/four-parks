@@ -5,7 +5,7 @@ import './LoginDiv.css';
 import { Link } from 'react-router-dom';
 
 function LoginDiv() {
-  const URL_POST = 'https://fourparks-one.vercel.app/login';
+  const URL_POST = 'https://backend-parqueadero-production.up.railway.app/login';
   const URL_USER = '/user';
   const URL_ADMIN = '/admin';
   const URL_GERENTE = '/gerente';
@@ -84,7 +84,7 @@ function LoginDiv() {
         redirect: "follow"
       };
 
-      fetch("https://fourparks-one.vercel.app/loginCodigo", requestOptions)
+      fetch("https://backend-parqueadero-production.up.railway.app/loginCodigo", requestOptions)
         .then(response => {
           if (response.ok) {
             return response.json();
