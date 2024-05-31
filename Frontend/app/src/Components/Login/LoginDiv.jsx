@@ -5,7 +5,7 @@ import './LoginDiv.css';
 import { Link } from 'react-router-dom';
 
 function LoginDiv() {
-  const URL_POST = 'https://https://fourparks-one.vercel.app/login';
+  const URL_POST = 'https://fourparks-one.vercel.app/login';
   const URL_USER = '/user';
   const URL_ADMIN = '/admin';
   const URL_GERENTE = '/gerente';
@@ -84,7 +84,7 @@ function LoginDiv() {
         redirect: "follow"
       };
 
-      fetch("https://https://fourparks-one.vercel.app/loginCodigo", requestOptions)
+      fetch("https://fourparks-one.vercel.app/loginCodigo", requestOptions)
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -160,7 +160,7 @@ function LoginDiv() {
 
             <p className='p'>Aún no tienes una cuenta? <a className='a' href={URL_REGISTRO}>Registrate</a></p>
           </Link>
-          <p>2</p>
+          <p>3</p>
         </div>
       </div>
     </>
