@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './TarjetaCredito.css';
-import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -25,7 +26,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
 
     const handleDateChange = (date) => {
         setExpiryDate(date);
-        const formattedDate = `${date.getMonth() + 1}/${date.getFullYear()}`;
+        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
         setCardInfo(prevState => ({
             ...prevState,
             expiry: formattedDate
@@ -36,40 +37,38 @@ export default function TarjetaCredito({ isOpen, userId }) {
         return number.replace(/(.{4})/g, '$1 ').trim();
     };
 
-    const formatExpiryDate = (expiry) => {
-        return expiry.replace(/^(\d{2})(\d{0,4})$/, '$1/$2');
-    };
-
     const validateData = () => {
         const { number, name, expiry, cvc } = cardInfo;
         if (
             number.length !== 16 ||
             !/^\d{16}$/.test(number.replace(/\s/g, '')) ||
             name.trim() === '' ||
+            expiry.trim() === '' ||
             cvc.length !== 3 ||
             !/^\d{3}$/.test(cvc)
         ) {
-            alert('Datos erróneos, por favor verificar.');
+            toast.error('Datos erróneos, por favor verificar.');
             return false;
         }
-        alert('Datos válidos.');
+        toast.success('Datos válidos.');
         return true;
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         if (!validateData()) return;
 
         const { number, name, expiry, cvc } = cardInfo;
-        const [month, year] = expiry.split('/');
-        const formattedExpiry = `${year}-${month}-01`;
 
         const data = {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
-            fecha_vencimiento: formattedExpiry,
+            fecha_vencimiento: expiry,
             usuario: userId
         };
+
+        console.log('Datos ingresados:', data);
 
         try {
             const requestOptions = {
@@ -87,14 +86,15 @@ export default function TarjetaCredito({ isOpen, userId }) {
             }
             const result = await response.json();
             console.log('Response from server:', result);
-            // Manejar el éxito, tal vez resetear el formulario o mostrar un mensaje
+            toast.success('Tarjeta agregada exitosamente.');
         } catch (error) {
-            alert('Error submitting data: ' + error.message);
+            toast.error('Error al enviar los datos: ' + error.message);
         }
     };
 
     return (
         <div className="credit-card-form">
+            <ToastContainer />
             <div className='credit-card-card'>
                 <div className='tarjetas'>
                     <div className="credit-card-front">
@@ -111,7 +111,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
                                 <div className='rccs__exp'>
                                     <p>valid true</p>
                                     <div className="rccs__expiry__valid">
-                                        {formatExpiryDate(cardInfo.expiry.padEnd(6, '•'))}
+                                        {cardInfo.expiry || 'MM/AAAA'}
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
                 </div>
                 <div className='formulario'>
                     <p className='texto'>Ingresa los datos de tu tarjeta para poder continuar </p>
-                    <form className='campos'>
+                    <form className='campos' onSubmit={handleSubmit}>
                         <input
                             type="text"
                             className='input-Tarjeta'
@@ -168,8 +168,8 @@ export default function TarjetaCredito({ isOpen, userId }) {
                             onChange={handleChange}
                             maxLength={3}
                         />
+                        <button type="submit">Validar</button>
                     </form>
-                    <button onClick={handleSubmit}>Validar</button>
                 </div>
             </div>
         </div>
