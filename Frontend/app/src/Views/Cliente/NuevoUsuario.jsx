@@ -33,7 +33,7 @@ function NuevoUsuario() {
           redirect: "follow"
         };
 
-        const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerCiudades", requestOptions);
+        const response = await fetch("https://fourparks-one.vercel.app/obtenerCiudades", requestOptions);
         const result = await response.json();
         setCities(result.data);
         
@@ -66,7 +66,7 @@ function NuevoUsuario() {
         redirect: "follow"
       };
 
-      const response = await fetch("https://backend-parqueadero-production.up.railway.app/parqueaderoCiudad", requestOptions);
+      const response = await fetch("https://https://fourparks-one.vercel.app/parqueaderoCiudad", requestOptions);
       const result = await response.json();
 
       const mappedParqueaderos = result.data.map(parqueadero => {
@@ -122,7 +122,7 @@ function NuevoUsuario() {
         redirect: "follow"
       };
 
-      const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerParqueadero", requestOptions);
+      const response = await fetch("https://https://fourparks-one.vercel.app/obtenerParqueadero", requestOptions);
       const result = await response.json();
       
       const { data } = result;
