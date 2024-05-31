@@ -55,7 +55,7 @@ export default function TarjetaCredito({ isOpen, userId }) {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+
         if (!validateData()) return;
 
         const { number, name, expiry, cvc } = cardInfo;
