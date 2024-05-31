@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function TarjetaCredito({ isOpen }) {
+export default function TarjetaCredito({ isOpen, userId }) {
     if (!isOpen) return null;
 
     const [cardInfo, setCardInfo] = useState({
@@ -46,7 +46,6 @@ export default function TarjetaCredito({ isOpen }) {
             number.length !== 16 ||
             !/^\d{16}$/.test(number.replace(/\s/g, '')) ||
             name.trim() === '' ||
-            !/^\d{2}\/\d{4}$/.test(expiry) ||
             cvc.length !== 3 ||
             !/^\d{3}$/.test(cvc)
         ) {
@@ -63,14 +62,13 @@ export default function TarjetaCredito({ isOpen }) {
         const { number, name, expiry, cvc } = cardInfo;
         const [month, year] = expiry.split('/');
         const formattedExpiry = `${year}-${month}-01`;
-        const usuario = localStorage.getItem('userId'); // Make sure 'userId' is stored in localStorage
 
         const data = {
             numero: number,
             nombre_propietario: name,
             cvc: cvc,
             fecha_vencimiento: formattedExpiry,
-            usuario: usuario // This should be the actual user ID from localStorage
+            usuario: userId
         };
 
         try {
@@ -84,11 +82,14 @@ export default function TarjetaCredito({ isOpen }) {
             };
 
             const response = await fetch("https://backend-parqueadero-production.up.railway.app/guardarTarjeta", requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const result = await response.json();
             console.log('Response from server:', result);
-            // Handle success, maybe reset form or show a message
+            // Manejar el éxito, tal vez resetear el formulario o mostrar un mensaje
         } catch (error) {
-            alert('Error submitting data:', error);
+            alert('Error submitting data: ' + error.message);
         }
     };
 
@@ -168,9 +169,7 @@ export default function TarjetaCredito({ isOpen }) {
                             maxLength={3}
                         />
                     </form>
-                    <Link to="/login">
-                        <button onClick={handleSubmit}>Validar</button>
-                    </Link>
+                    <button onClick={handleSubmit}>Validar</button>
                 </div>
             </div>
         </div>
