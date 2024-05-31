@@ -13,6 +13,7 @@ function RegistroDiv() {
   const [identificacion, setIdentificacion] = useState('');
   const [correo, setCorreo] = useState('');
   const [isTarjetaOpen, setTarjetaOpen] = useState(false);
+  const [userId, setUserId] = useState('');
 
   const registrar = (event) => {
     event.preventDefault();
@@ -51,6 +52,8 @@ function RegistroDiv() {
       .then((data) => {
         setTarjetaOpen(true);
         toast.success("Registro exitoso");
+        setUserId(data.id);
+        console.log(UserId);
         console.log("Registro exitoso:", data);
       })
       .catch((error) => {
@@ -97,7 +100,8 @@ function RegistroDiv() {
         <Link to='/login' className='link'>
           <p className="p">¿Ya tienes una cuenta? Inicia sesión</p>
         </Link>
-        <TarjetaCredito isOpen={isTarjetaOpen} />
+        <p>1</p>
+        <TarjetaCredito isOpen={isTarjetaOpen } userId={} />
       </div>
     </div>
   );
