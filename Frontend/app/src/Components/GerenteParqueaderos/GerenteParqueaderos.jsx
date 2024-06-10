@@ -4,8 +4,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import DetalleParqueadero from './DetalleParqueadero';
 
 function GerenteParqueaderos() {
-  const URL_CIUDADES = "https://backend-parqueadero-production.up.railway.app/obtenerCiudades";
-  const URL_PARQUEADEROS_CIUDAD = "https://backend-parqueadero-production.up.railway.app/parqueaderoCiudad";
+  const URL_CIUDADES = "http://localhost:8080//obtenerCiudades";
+  const URL_PARQUEADEROS_CIUDAD = "http://localhost:8080//parqueaderoCiudad";
 
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState("");
   const [ciudades, setCiudades] = useState([]);

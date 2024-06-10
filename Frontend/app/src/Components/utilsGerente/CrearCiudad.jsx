@@ -18,7 +18,7 @@ const CrearCiudad = () => {
         console.log('Form data submitted:', data);
 
         try {
-            const response = await fetch('https://backend-parqueadero-production.up.railway.app/crearCiudad', {
+            const response = await fetch('http://localhost:8080//crearCiudad', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

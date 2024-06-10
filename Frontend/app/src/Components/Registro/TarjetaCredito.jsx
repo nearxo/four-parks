@@ -82,7 +82,7 @@ export default function TarjetaCredito({ isOpen }) {
                 redirect: "follow"
             };
 
-            const response = await fetch("https://backend-parqueadero-production.up.railway.app/guardarTarjeta", requestOptions);
+            const response = await fetch("http://localhost:8080//guardarTarjeta", requestOptions);
             const result = await response.json();
             console.log('Response from server:', result);
             // Handle success, maybe reset form or show a message

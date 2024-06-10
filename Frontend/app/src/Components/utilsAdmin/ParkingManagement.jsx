@@ -7,7 +7,7 @@ import FinalizarReserva from './ReservarCupos/FinalizarReserva/FinalizarReserva'
 
 const fetchParkingLot = async (parkingLotId) => {
   try {
-    const response = await fetch('https://backend-parqueadero-production.up.railway.app/obtenerParqueadero', {
+    const response = await fetch('http://localhost:8080//obtenerParqueadero', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

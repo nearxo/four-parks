@@ -20,7 +20,7 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
 
   useEffect(() => {
     // Fetch vehicle types from the API
-    fetch('https://backend-parqueadero-production.up.railway.app/obtenerVehiculos')
+    fetch('http://localhost:8080//obtenerVehiculos')
       .then(response => response.json())
       .then(data => {
         // Print available slots to console

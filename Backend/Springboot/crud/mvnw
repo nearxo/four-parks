@@ -8,7 +8,7 @@
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
 #
-#    https://www.apache.org/licenses/LICENSE-2.0
+#    http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
@@ -58,7 +58,7 @@ case "$(uname)" in
   MINGW*) mingw=true;;
   Darwin*) darwin=true
     # Use /usr/libexec/java_home if available, otherwise fall back to /Library/Java/Home
-    # See https://developer.apple.com/library/mac/qa/qa1170/_index.html
+    # See http://developer.apple.com/library/mac/qa/qa1170/_index.html
     if [ -z "$JAVA_HOME" ]; then
       if [ -x "/usr/libexec/java_home" ]; then
         JAVA_HOME="$(/usr/libexec/java_home)"; export JAVA_HOME
@@ -196,7 +196,7 @@ else
     if [ -n "$MVNW_REPOURL" ]; then
       wrapperUrl="$MVNW_REPOURL/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
     else
-      wrapperUrl="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
+      wrapperUrl="http://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
     fi
     while IFS="=" read -r key value; do
       # Remove '\r' from value to allow usage on windows as IFS does not consider '\r' as a separator ( considers space, tab, new line ('\n'), and custom '=' )

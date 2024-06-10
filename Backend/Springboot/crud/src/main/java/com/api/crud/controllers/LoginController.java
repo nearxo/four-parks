@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.httpervletRequest;
 
 import com.api.crud.DTO.Request.LoginRequest;
 import com.api.crud.DTO.Response.LoginResponse;
@@ -124,7 +124,7 @@ public class LoginController {
     @CrossOrigin(origins = "http://localhost:5173/")
     @PostMapping("/loginCodigo")
     public Map<String, Object> loginCodigo(@RequestBody LoginCodigoRequest loginCodigoRequest,
-            HttpServletRequest request) {
+            httpervletRequest request) {
         Long id = loginCodigoRequest.getId();
         String codigo = loginCodigoRequest.getCodigo();
         String codigoUsuario = this.userService.codigoUsuario(id);

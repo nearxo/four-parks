@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './FormCrearCiudad.css'
 
 function FormCrearCiudad() {
-    const URL_CREAR_CIUDAD = "https://backend-parqueadero-production.up.railway.app/crearCiudad"
+    const URL_CREAR_CIUDAD = "http://localhost:8080//crearCiudad"
     const [cityName, setCityName] = useState('');
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');

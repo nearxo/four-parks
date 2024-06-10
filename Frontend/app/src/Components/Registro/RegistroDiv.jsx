@@ -8,7 +8,7 @@ import './RegistroDiv.css';
 import { Link } from 'react-router-dom';
 
 function RegistroDiv() {
-  const URL_POST = 'https://backend-parqueadero-production.up.railway.app/registroPersona'; // Endpoint para confirmar datos
+  const URL_POST = 'http://localhost:8080//registroPersona'; // Endpoint para confirmar datos
   const [nombre, setNombre] = useState('');
   const [identificacion, setIdentificacion] = useState('');
   const [correo, setCorreo] = useState('');
